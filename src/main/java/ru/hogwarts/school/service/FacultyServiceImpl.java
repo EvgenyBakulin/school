@@ -1,7 +1,8 @@
 package ru.hogwarts.school.service;
 
 import org.springframework.stereotype.Service;
-import ru.hogwarts.school.interfaces.FacultyService;
+import ru.hogwarts.school.exeption.WrongIDExeption;
+import ru.hogwarts.school.interfac.FacultyService;
 import ru.hogwarts.school.model.Faculty;
 
 import java.util.Collection;
@@ -12,7 +13,7 @@ import java.util.stream.Collectors;
 //Чтобы поработать и с телами, и с параметрами, с факультетами я работал чеерз тела, а со студентами - через параметры
 @Service
 public class FacultyServiceImpl implements FacultyService {
-    private Map<Long, Faculty> faculties = new HashMap<>();
+    private final Map<Long, Faculty> faculties = new HashMap<>();
     private long id = 0;
 
     public Collection<Faculty> getHogwarts() {
@@ -27,7 +28,9 @@ public class FacultyServiceImpl implements FacultyService {
     }
 
     public Faculty getFaculty(long myId) {
-        return faculties.get(myId);
+        if (faculties.containsKey(myId)) {
+        return faculties.get(myId);}
+        else throw new WrongIDExeption();
     }
 
     public Faculty updateFaculty(Faculty faculty) {
@@ -36,13 +39,14 @@ public class FacultyServiceImpl implements FacultyService {
     }
 
     public Faculty deleteFaculty(long myId) {
-        return faculties.remove(myId);
+        if (faculties.containsKey(myId)) {
+        return faculties.remove(myId);}
+        else throw new WrongIDExeption();
     }
 
     public List<Faculty> toColor(String color) {
-        List<Faculty> listToColor = faculties.values().stream()
+        return faculties.values().stream()
                 .filter(e -> e.getColor().equalsIgnoreCase(color))
                 .collect(Collectors.toList());
-        return listToColor;
     }
 }

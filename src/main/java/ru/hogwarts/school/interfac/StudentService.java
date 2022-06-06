@@ -1,4 +1,4 @@
-package ru.hogwarts.school.interfaces;
+package ru.hogwarts.school.interfac;
 
 import ru.hogwarts.school.model.Student;
 
