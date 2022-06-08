@@ -7,6 +7,8 @@ import ru.hogwarts.school.model.Student;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
+
 @RestController
 @RequestMapping("/student")
 public class StudentController {
@@ -17,27 +19,29 @@ public class StudentController {
     }
 
     @PostMapping
-    public ResponseEntity <Student> addStudent (@RequestBody Student student){
+    public ResponseEntity<Student> addStudent(@RequestBody Student student) {
         Student s = studentService.addStudent(student);
         return ResponseEntity.ok(student);
     }
 
-    /*@GetMapping
-    public Collection<Student> getAll(){
-        return studentService.getAllStudents();*/
+    @GetMapping
+    public Collection<Student> getAll() {
+        return studentService.getAllStudents();
+    }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Student> getStudent(@PathVariable long id) {
-        Student student = studentService.getStudent(id);
+    public ResponseEntity<Optional<Student>> getStudent(@PathVariable long id) {
+        Optional<Student> student = studentService.getStudent(id);
         return ResponseEntity.ok(student);
     }
 
-    /*@GetMapping("/toAge")
-    public List<Student> studentsToAge(@RequestParam (value = "age") int age) {
+    @GetMapping("/toAge")
+    public List<Student> studentsToAge(@RequestParam(value = "age") int age) {
         return studentService.toAge(age);
-    }*/
+    }
+
     @PutMapping
-    public ResponseEntity<Student> updateStudent( @RequestBody Student student) {
+    public ResponseEntity<Student> updateStudent(@RequestBody Student student) {
         Student s = studentService.updateStudent(student);
         return ResponseEntity.ok(s);
     }

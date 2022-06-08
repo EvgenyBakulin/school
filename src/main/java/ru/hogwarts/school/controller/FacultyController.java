@@ -7,8 +7,8 @@ import ru.hogwarts.school.model.Faculty;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 
-//Чтобы поработать и с телами, и с параметрами, с факультетами я работал чеерз тела, а со студентами - через параметры
 @RestController
 @RequestMapping("/faculty")
 public class FacultyController {
@@ -24,7 +24,7 @@ public class FacultyController {
         return ResponseEntity.ok(f);
     }
 
-    /*@GetMapping
+    @GetMapping
     public Collection<Faculty> getAll() {
         return facultyService.getHogwarts();
     }
@@ -32,11 +32,11 @@ public class FacultyController {
     @GetMapping("/toColor")
     public List<Faculty> toColor(@RequestParam(value = "color") String color) {
         return facultyService.toColor(color);
-    }*/
+    }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Faculty> getFaculty(@PathVariable long id) {
-        Faculty faculty = facultyService.getFaculty(id);
+    public ResponseEntity<Optional<Faculty>> getFaculty(@PathVariable long id) {
+        Optional<Faculty> faculty = facultyService.getFaculty(id);
         return ResponseEntity.ok(faculty);
     }
 

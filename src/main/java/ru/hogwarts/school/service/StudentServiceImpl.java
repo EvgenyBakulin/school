@@ -10,25 +10,26 @@ import ru.hogwarts.school.repository.StudentRepository;
 import java.util.*;
 import java.util.stream.Collectors;
 
-//Чтобы поработать и с телами, и с параметрами, с факультетами я работал чеерз тела, а со студентами - через параметры
 @Service
 public class StudentServiceImpl implements StudentService {
     @Autowired
     private final StudentRepository studentRepository;
-    public StudentServiceImpl (StudentRepository studentRepository) {
+
+    public StudentServiceImpl(StudentRepository studentRepository) {
         this.studentRepository = studentRepository;
     }
-   /* public Collection<Student> getAllStudents() {
-        return students.values();
-    }*/
 
-    public Student addStudent(Student student) {
-       return studentRepository.save(student);
+    public Collection<Student> getAllStudents() {
+        return studentRepository.findAll();
     }
 
-    public Student getStudent(long myId) {
+    public Student addStudent(Student student) {
+        return studentRepository.save(student);
+    }
+
+    public Optional<Student> getStudent(long myId) {
         if (studentRepository.existsById(myId)) {
-            return studentRepository.getReferenceById(myId);
+            return studentRepository.findById(myId);
         } else {
             throw new WrongIDExeption();
         }
@@ -36,7 +37,7 @@ public class StudentServiceImpl implements StudentService {
 
     public Student updateStudent(Student student) {
 
-            return studentRepository.save(student);
+        return studentRepository.save(student);
     }
 
     public void deleteStudent(long myId) {
@@ -47,9 +48,9 @@ public class StudentServiceImpl implements StudentService {
         }
     }
 
-  /*  public List<Student> toAge(int age) {
-        return students.values().stream()
+    public List<Student> toAge(int age) {
+        return studentRepository.findAll().stream()
                 .filter(e -> e.getAge() == age)
                 .collect(Collectors.toList());
-    }*/
+    }
 }

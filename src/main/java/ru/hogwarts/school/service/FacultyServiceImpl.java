@@ -7,13 +7,9 @@ import ru.hogwarts.school.interfac.FacultyService;
 import ru.hogwarts.school.model.Faculty;
 import ru.hogwarts.school.repository.FacultyRepository;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
-//Чтобы поработать и с телами, и с параметрами, с факультетами я работал чеерз тела, а со студентами - через параметры
 @Service
 public class FacultyServiceImpl implements FacultyService {
     @Autowired
@@ -23,24 +19,24 @@ public class FacultyServiceImpl implements FacultyService {
         this.facultyRepository = facultyRepository;
     }
 
-    /*public Collection<Faculty> getHogwarts() {
-        return faculties.values();
-    }*/
-
-    public Faculty addFaculty(Faculty faculty) {
-       return facultyRepository.save(faculty);
+    public Collection<Faculty> getHogwarts() {
+        return facultyRepository.findAll();
     }
 
-    public Faculty getFaculty(long myId) {
+    public Faculty addFaculty(Faculty faculty) {
+        return facultyRepository.save(faculty);
+    }
+
+    public Optional<Faculty> getFaculty(long myId) {
         if (facultyRepository.existsById(myId)) {
-            return facultyRepository.getReferenceById(myId);
+            return facultyRepository.findById(myId);
         } else {
             throw new WrongIDExeption();
         }
     }
 
     public Faculty updateFaculty(Faculty faculty) {
-     return facultyRepository.save(faculty);
+        return facultyRepository.save(faculty);
     }
 
     public void deleteFaculty(long myId) {
@@ -51,9 +47,9 @@ public class FacultyServiceImpl implements FacultyService {
         }
     }
 
-   /* public List<Faculty> toColor(String color) {
-        return faculties.values().stream()
+    public List<Faculty> toColor(String color) {
+        return facultyRepository.findAll().stream()
                 .filter(e -> e.getColor().equalsIgnoreCase(color))
                 .collect(Collectors.toList());
-    }*/
+    }
 }
