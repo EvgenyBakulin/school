@@ -6,7 +6,7 @@ import java.util.Collection;
 import java.util.List;
 
 public interface FacultyService {
-    Collection<Faculty> getHogwarts();
+    //Collection<Faculty> getHogwarts();
 
     Faculty addFaculty(Faculty faculty);
 
@@ -14,7 +14,7 @@ public interface FacultyService {
 
     Faculty updateFaculty(Faculty faculty);
 
-    Faculty deleteFaculty(long myId);
+    void deleteFaculty(long myId);
 
-    List<Faculty> toColor(String color);
+   // List<Faculty> toColor(String color);
 }

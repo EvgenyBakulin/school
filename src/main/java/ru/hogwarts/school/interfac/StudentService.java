@@ -6,15 +6,15 @@ import java.util.Collection;
 import java.util.List;
 
 public interface StudentService {
-    Collection<Student> getAllStudents();
+    //Collection<Student> getAllStudents();
 
-    Student addStudent(String name, int age);
+    Student addStudent(Student student);
 
     Student getStudent(long myId);
 
-    Student updateStudent(long id, String name, int age);
+    Student updateStudent(Student student);
 
-    Student deleteStudent(long myId);
+    void deleteStudent(long myId);
 
-    List<Student> toAge(int age);
+   // List<Student> toAge(int age);
 }

@@ -7,7 +7,6 @@ import ru.hogwarts.school.model.Student;
 
 import java.util.Collection;
 import java.util.List;
-//Чтобы поработать и с телами, и с параметрами, с факультетами я работал чеерз тела, а со студентами - через параметры
 @RestController
 @RequestMapping("/student")
 public class StudentController {
@@ -18,15 +17,14 @@ public class StudentController {
     }
 
     @PostMapping
-    public ResponseEntity <Student> addStudent (@RequestParam(value = "name") String name, @RequestParam(value = "age") int age){
-        Student student = studentService.addStudent(name,age);
+    public ResponseEntity <Student> addStudent (@RequestBody Student student){
+        Student s = studentService.addStudent(student);
         return ResponseEntity.ok(student);
     }
 
-    @GetMapping
+    /*@GetMapping
     public Collection<Student> getAll(){
-        return studentService.getAllStudents();
-    }
+        return studentService.getAllStudents();*/
 
     @GetMapping("/{id}")
     public ResponseEntity<Student> getStudent(@PathVariable long id) {
@@ -34,22 +32,20 @@ public class StudentController {
         return ResponseEntity.ok(student);
     }
 
-    @GetMapping("/toAge")
+    /*@GetMapping("/toAge")
     public List<Student> studentsToAge(@RequestParam (value = "age") int age) {
         return studentService.toAge(age);
-    }
-
+    }*/
     @PutMapping
-    public ResponseEntity<Student> updateStudent(@RequestParam (value = "id") long id, @RequestParam(value = "newName") String name,
-                                 @RequestParam(value = "newAge") int age) {
-        Student student = studentService.updateStudent(id,name,age);
-        return ResponseEntity.ok(student);
+    public ResponseEntity<Student> updateStudent( @RequestBody Student student) {
+        Student s = studentService.updateStudent(student);
+        return ResponseEntity.ok(s);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity <Student> deleteStudent(@PathVariable long id) {
-        Student student = studentService.deleteStudent(id);
-        return ResponseEntity.ok(student);
+    public ResponseEntity deleteStudent(@PathVariable long id) {
+        studentService.deleteStudent(id);
+        return ResponseEntity.ok().build();
     }
 
 }
