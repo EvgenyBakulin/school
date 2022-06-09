@@ -4,9 +4,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.hogwarts.school.interfac.FacultyService;
 import ru.hogwarts.school.model.Faculty;
+import ru.hogwarts.school.model.Student;
 
 import java.util.Collection;
-import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -29,9 +29,14 @@ public class FacultyController {
         return facultyService.getHogwarts();
     }
 
-    @GetMapping("/toColor")
-    public List<Faculty> toColor(@RequestParam(value = "color") String color) {
-        return facultyService.toColor(color);
+    @GetMapping("/toNameOrColor")
+    public Collection<Faculty> toNameOrColor(@RequestParam (required = false) String name,
+                                             @RequestParam(required = false) String color) {
+        return facultyService.toNameOrColor(name,color);
+    }
+    @GetMapping("/students")
+    public Collection<Student> allStudents(@RequestParam long id)  {
+        return facultyService.getAllFacultyStudents(id);
     }
 
     @GetMapping("/{id}")

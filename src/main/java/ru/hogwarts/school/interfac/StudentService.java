@@ -1,9 +1,9 @@
 package ru.hogwarts.school.interfac;
 
+import ru.hogwarts.school.model.Faculty;
 import ru.hogwarts.school.model.Student;
 
 import java.util.Collection;
-import java.util.List;
 import java.util.Optional;
 
 public interface StudentService {
@@ -17,5 +17,10 @@ public interface StudentService {
 
     void deleteStudent(long myId);
 
-    List<Student> toAge(int age);
+    Collection <Student> studentsToAgeBetween(int min, int max);
+
+    Faculty getStudentFaculty(Long id);
+
+
+
 }

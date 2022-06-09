@@ -1,18 +1,17 @@
 package ru.hogwarts.school.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.hogwarts.school.exeption.WrongIDExeption;
 import ru.hogwarts.school.interfac.StudentService;
+import ru.hogwarts.school.model.Faculty;
 import ru.hogwarts.school.model.Student;
 import ru.hogwarts.school.repository.StudentRepository;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Service
 public class StudentServiceImpl implements StudentService {
-    @Autowired
+
     private final StudentRepository studentRepository;
 
     public StudentServiceImpl(StudentRepository studentRepository) {
@@ -48,9 +47,21 @@ public class StudentServiceImpl implements StudentService {
         }
     }
 
-    public List<Student> toAge(int age) {
-        return studentRepository.findAll().stream()
-                .filter(e -> e.getAge() == age)
-                .collect(Collectors.toList());
+    public Collection<Student> studentsToAgeBetween(int min, int max) {
+        if (min > max) {
+            int temp = min;
+            min = max;
+            max = temp;
+        }
+        return studentRepository.findByAgeBetween(min, max);
     }
+
+    public Faculty getStudentFaculty(Long id) {
+        if (studentRepository.existsById(id)) {
+            return studentRepository.findById(id).get().getFaculty();
+        } else {
+            throw new WrongIDExeption();
+        }
+    }
+
 }
