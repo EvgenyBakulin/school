@@ -26,12 +26,8 @@ public class FacultyServiceImpl implements FacultyService {
         return facultyRepository.save(faculty);
     }
 
-    public Optional<Faculty> getFaculty(long myId) {
-        if (facultyRepository.existsById(myId)) {
-            return facultyRepository.findById(myId);
-        } else {
-            throw new WrongIDExeption();
-        }
+    public Faculty getFaculty(long myId) {
+        return facultyRepository.findById(myId).orElseThrow(WrongIDExeption::new);
     }
 
     public Faculty updateFaculty(Faculty faculty) {
@@ -51,10 +47,6 @@ public class FacultyServiceImpl implements FacultyService {
     }
 
     public Collection<Student> getAllFacultyStudents(long id) {
-        if (facultyRepository.existsById(id)) {
-            return facultyRepository.findById(id).get().getStudents();
-        } else {
-            throw new WrongIDExeption();
-        }
+        return facultyRepository.findById(id).orElseThrow(WrongIDExeption::new).getStudents();
     }
 }

@@ -5,16 +5,16 @@ import org.springframework.web.bind.annotation.*;
 import ru.hogwarts.school.interfac.StudentService;
 import ru.hogwarts.school.model.Faculty;
 import ru.hogwarts.school.model.Student;
+import ru.hogwarts.school.service.AvatarServiceImpl;
 
 import java.util.Collection;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/student")
 public class StudentController {
     private final StudentService studentService;
 
-    public StudentController(StudentService studentService) {
+    public StudentController(StudentService studentService, AvatarServiceImpl avatarService) {
         this.studentService = studentService;
     }
 
@@ -30,14 +30,14 @@ public class StudentController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Optional<Student>> getStudent(@PathVariable long id) {
-        Optional<Student> student = studentService.getStudent(id);
+    public ResponseEntity<Student> getStudent(@PathVariable long id) {
+        Student student = studentService.getStudent(id);
         return ResponseEntity.ok(student);
     }
 
     @GetMapping("/toAge")
-    public Collection<Student> studentsToAge(@RequestParam(value = "minAge") int min,@RequestParam(value = "maxAge") int max) {
-        return studentService.studentsToAgeBetween(min,max);
+    public Collection<Student> studentsToAge(@RequestParam(value = "minAge") int min, @RequestParam(value = "maxAge") int max) {
+        return studentService.studentsToAgeBetween(min, max);
     }
 
     @GetMapping("/studentFaculty")

@@ -26,12 +26,9 @@ public class StudentServiceImpl implements StudentService {
         return studentRepository.save(student);
     }
 
-    public Optional<Student> getStudent(long myId) {
-        if (studentRepository.existsById(myId)) {
-            return studentRepository.findById(myId);
-        } else {
-            throw new WrongIDExeption();
-        }
+    public Student getStudent(long myId) {
+
+        return studentRepository.findById(myId).orElseThrow(WrongIDExeption::new);
     }
 
     public Student updateStudent(Student student) {
@@ -57,11 +54,7 @@ public class StudentServiceImpl implements StudentService {
     }
 
     public Faculty getStudentFaculty(Long id) {
-        if (studentRepository.existsById(id)) {
-            return studentRepository.findById(id).get().getFaculty();
-        } else {
-            throw new WrongIDExeption();
-        }
+        return studentRepository.findById(id).orElseThrow(WrongIDExeption::new).getFaculty();
     }
 
 }
