@@ -23,4 +23,8 @@ public interface StudentService {
 
     int getNumberOfStudents();
 
+    double averageAge();
+
+    Collection<Student> lastStudentsOrderById();
+
 }

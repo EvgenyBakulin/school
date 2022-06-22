@@ -51,6 +51,15 @@ public class StudentController {
         return studentService.getNumberOfStudents();
     }
 
+    @GetMapping("/averageAge")
+    public double averageAge(){
+        return studentService.averageAge();
+    }
+
+    @GetMapping("/lastStudents")
+    public Collection<Student> lastStudents(){
+        return studentService.lastStudentsOrderById();
+    }
     @PutMapping
     public ResponseEntity<Student> updateStudent(@RequestBody Student student) {
         Student s = studentService.updateStudent(student);

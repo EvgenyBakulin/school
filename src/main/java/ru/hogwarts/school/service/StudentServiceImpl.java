@@ -61,4 +61,12 @@ public class StudentServiceImpl implements StudentService {
        return studentRepository.getNumberOfStudents();
     }
 
+    public double averageAge() {
+        return studentRepository.averageAge();
+    }
+
+    public  Collection<Student> lastStudentsOrderById() {
+        return studentRepository.lastStudentsOrderById();
+    }
+
 }
