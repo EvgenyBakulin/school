@@ -46,6 +46,11 @@ public class StudentController {
         return ResponseEntity.ok(f);
     }
 
+    @GetMapping("/numberOfStudents")
+    public int getNumberOfStudents(){
+        return studentService.getNumberOfStudents();
+    }
+
     @PutMapping
     public ResponseEntity<Student> updateStudent(@RequestBody Student student) {
         Student s = studentService.updateStudent(student);

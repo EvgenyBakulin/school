@@ -21,6 +21,6 @@ public interface StudentService {
 
     Faculty getStudentFaculty(Long id);
 
-
+    int getNumberOfStudents();
 
 }

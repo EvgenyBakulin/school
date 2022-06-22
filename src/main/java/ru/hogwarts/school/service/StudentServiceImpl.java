@@ -57,4 +57,8 @@ public class StudentServiceImpl implements StudentService {
         return studentRepository.findById(id).orElseThrow(WrongIDExeption::new).getFaculty();
     }
 
+    public int getNumberOfStudents() {
+       return studentRepository.getNumberOfStudents();
+    }
+
 }
