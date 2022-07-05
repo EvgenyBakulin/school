@@ -30,8 +30,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 
-@SpringBootTest
-//@ExtendWith(MockitoExtension.class)
+/*@SpringBootTest
+@ExtendWith(MockitoExtension.class)
  @WebMvcTest
 public class SchoolApplicationMockTests {
     @Autowired
@@ -79,4 +79,4 @@ public class SchoolApplicationMockTests {
                 .andExpect(jsonPath("$.name").value(name))
                 .andExpect(jsonPath("$.color").value(color));
     }
-}
+}*/

@@ -1,5 +1,7 @@
 package ru.hogwarts.school.service;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import ru.hogwarts.school.exeption.WrongIDExeption;
 import ru.hogwarts.school.interfac.StudentService;
@@ -13,30 +15,35 @@ import java.util.*;
 public class StudentServiceImpl implements StudentService {
 
     private final StudentRepository studentRepository;
+    Logger logger = LoggerFactory.getLogger(StudentServiceImpl.class);
 
     public StudentServiceImpl(StudentRepository studentRepository) {
         this.studentRepository = studentRepository;
     }
 
+
     public Collection<Student> getAllStudents() {
+        logger.info("Вызван метод getAllStudents");
         return studentRepository.findAll();
     }
 
     public Student addStudent(Student student) {
+        logger.info("Вызван метод addStudent");
         return studentRepository.save(student);
     }
 
     public Student getStudent(long myId) {
-
+        logger.info("Вызван метод getStudent");
         return studentRepository.findById(myId).orElseThrow(WrongIDExeption::new);
     }
 
     public Student updateStudent(Student student) {
-
+        logger.info("Вызван метод updateStudent");
         return studentRepository.save(student);
     }
 
     public void deleteStudent(long myId) {
+        logger.info("Вызван метод deleteStudent");
         if (studentRepository.existsById(myId)) {
             studentRepository.deleteById(myId);
         } else {
@@ -45,6 +52,7 @@ public class StudentServiceImpl implements StudentService {
     }
 
     public Collection<Student> studentsToAgeBetween(int min, int max) {
+        logger.info("Вызван метод studentsToAgeBetween");
         if (min > max) {
             int temp = min;
             min = max;
@@ -54,18 +62,22 @@ public class StudentServiceImpl implements StudentService {
     }
 
     public Faculty getStudentFaculty(Long id) {
+        logger.info("Вызван метод getStudentFaculty");
         return studentRepository.findById(id).orElseThrow(WrongIDExeption::new).getFaculty();
     }
 
     public int getNumberOfStudents() {
-       return studentRepository.getNumberOfStudents();
+        logger.info("Вызван метод getNumberOfStudents");
+        return studentRepository.getNumberOfStudents();
     }
 
     public double averageAge() {
+        logger.info("Вызван метод averageAge");
         return studentRepository.averageAge();
     }
 
-    public  Collection<Student> lastStudentsOrderById() {
+    public Collection<Student> lastStudentsOrderById() {
+        logger.info("Вызван метод lastStudentsOrderById");
         return studentRepository.lastStudentsOrderById();
     }
 

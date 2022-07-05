@@ -62,18 +62,18 @@ class SchoolApplicationTests {
 
 	}
 
-	@Test
+	/*@Test
 	public void testDeleteStudent() throws Exception {
-		/*Student student = new Student();
+		Student student = new Student();
 		student.setId(111);
 		student.setName("aaaaa");
 		student.setAge(11);
 		org.assertj.core.api.Assertions.assertThat(this.restTemplate.postForObject("http://localhost:"
-				+port+"/student",student,String.class)).isNotNull();*/
+				+port+"/student",student,String.class)).isNotNull();
 		ResponseEntity<String> response = restTemplate.exchange("/student/10",
 				HttpMethod.DELETE,new HttpEntity<>(""), String.class);
 		assertEquals(HttpStatus.OK, response.getStatusCode());
-		/*Student student = new Student();
+		Student student = new Student();
 		student.setId(111);
 		student.setName("aaaaa");
 		student.setAge(11);
@@ -86,7 +86,7 @@ class SchoolApplicationTests {
 				.assertThat(this.restTemplate.delete("http://localhost:"
 								+port+"/student/"+student.getId()
 						        ,student,Void.class))
-				.isNotNull();*/
-	}
+				.isNotNull();
+	}*/
 
 }
