@@ -34,7 +34,9 @@ public class StudentServiceImpl implements StudentService {
 
     public Student getStudent(long myId) {
         logger.info("Вызван метод getStudent");
-        return studentRepository.findById(myId).orElseThrow(WrongIDExeption::new);
+        return studentRepository.findById(myId)
+                .orElseThrow(()->{logger.error("Нет студента с id "+myId);
+            throw new WrongIDExeption(); });
     }
 
     public Student updateStudent(Student student) {
@@ -47,6 +49,7 @@ public class StudentServiceImpl implements StudentService {
         if (studentRepository.existsById(myId)) {
             studentRepository.deleteById(myId);
         } else {
+            logger.error("Нет студента с id "+myId);
             throw new WrongIDExeption();
         }
     }
@@ -63,7 +66,10 @@ public class StudentServiceImpl implements StudentService {
 
     public Faculty getStudentFaculty(Long id) {
         logger.info("Вызван метод getStudentFaculty");
-        return studentRepository.findById(id).orElseThrow(WrongIDExeption::new).getFaculty();
+        return studentRepository.findById(id)
+                .orElseThrow(()->{logger.error("Нет студента с id "+id);
+                  throw new WrongIDExeption();})
+                .getFaculty();
     }
 
     public int getNumberOfStudents() {

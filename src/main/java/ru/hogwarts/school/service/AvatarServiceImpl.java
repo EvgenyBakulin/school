@@ -1,5 +1,6 @@
 package ru.hogwarts.school.service;
 
+import liquibase.pro.packaged.W;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -50,6 +51,7 @@ public class AvatarServiceImpl implements AvatarService {
         logger.info("Вызван метод uploadAvatar");
         Student student = studentService.getStudent(id);
         if (studentService.getStudent(id) == null) {
+            logger.error("Нет студента с id "+id);
             throw new WrongIDExeption();
         }
         Path pathFile = Path.of(avatarsDir, id + "." + getExtension(file.getOriginalFilename()));
@@ -76,6 +78,7 @@ public class AvatarServiceImpl implements AvatarService {
         logger.info("Вызван метод getAllAvatars");
         if ((long)(pageNumber-1)*pageSize>avatarRepository.count())
         {
+            logger.error("Неверный запрос");
             throw new BadRequestExeption();
         }
         else {
@@ -86,7 +89,9 @@ public class AvatarServiceImpl implements AvatarService {
 
     public Avatar findAvatar(Long id) {
         logger.info("Вызван метод findAvatar");
-        return avatarRepository.findByStudentId(id).orElseThrow(WrongIDExeption::new);
+        return avatarRepository.findByStudentId(id).orElseThrow(()->{logger.error("");
+                                                                      throw new WrongIDExeption();
+        });
     }
 
 
