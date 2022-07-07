@@ -65,4 +65,17 @@ public class FacultyServiceImpl implements FacultyService {
             throw new WrongIDExeption();})
                 .getStudents();
     }
+
+    public String longestFacultyName(){
+        return facultyRepository.findAll()
+                .stream()
+                .reduce((x,y)->{
+                    if (x.getName().length()>y.getName().length()) {
+                        return x;
+                    }
+                    else
+                    {return y;}
+                }).get().getName();
+
+    }
 }

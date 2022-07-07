@@ -46,6 +46,12 @@ public class FacultyController {
         return ResponseEntity.ok(faculty);
     }
 
+    @GetMapping("longestName")
+    public ResponseEntity<String> getLongestNsme() {
+        String s = facultyService.longestFacultyName();
+        return ResponseEntity.ok(s);
+    }
+
     @PutMapping
     public ResponseEntity<Faculty> updateFaculty(@RequestBody Faculty faculty) {
         Faculty f = facultyService.updateFaculty(faculty);

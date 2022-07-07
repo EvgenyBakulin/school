@@ -26,6 +26,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Collection;
 import java.util.function.Supplier;
+import java.util.stream.Stream;
 
 import static java.nio.file.StandardOpenOption.CREATE_NEW;
 
@@ -94,6 +95,12 @@ public class AvatarServiceImpl implements AvatarService {
         });
     }
 
+    public int sum(){
+        return Stream.iterate(1, a -> a +1)
+                .parallel()
+                .limit(1_000_000)
+                .reduce(0, (a, b) -> a + b );
+    }
 
     private byte[] generateImageData(Path filePath) throws IOException {
         try (InputStream is = Files.newInputStream(filePath);

@@ -13,4 +13,6 @@ public interface AvatarService {
     Avatar findAvatar(Long id);
 
     Collection<Avatar> getAllAvatars(Integer pageNumber, Integer pageSize);
+
+    int sum();
 }

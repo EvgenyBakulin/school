@@ -82,6 +82,22 @@ public class StudentServiceImpl implements StudentService {
         return studentRepository.averageAge();
     }
 
+    public List<String> studentsToLiterA(){
+        return studentRepository.findAll()
+                .stream()
+                .map(s->s.getName().toUpperCase())
+                .filter(name->name.startsWith("A"))
+                .sorted()
+                .toList();
+    }
+    public double averageAgeofStudents(){
+        logger.info("Вызван метод averageAgeOfStudents");
+        return studentRepository.findAll()
+                .stream()
+                .map(i->i.getAge())
+                .reduce(Integer::sum).get()/(double)studentRepository.count();
+    }
+
     public Collection<Student> lastStudentsOrderById() {
         logger.info("Вызван метод lastStudentsOrderById");
         return studentRepository.lastStudentsOrderById();
