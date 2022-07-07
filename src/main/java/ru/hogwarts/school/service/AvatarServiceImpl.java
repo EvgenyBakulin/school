@@ -52,7 +52,7 @@ public class AvatarServiceImpl implements AvatarService {
         logger.info("Вызван метод uploadAvatar");
         Student student = studentService.getStudent(id);
         if (studentService.getStudent(id) == null) {
-            logger.error("Нет студента с id "+id);
+            logger.error("Нет студента с id " + id);
             throw new WrongIDExeption();
         }
         Path pathFile = Path.of(avatarsDir, id + "." + getExtension(file.getOriginalFilename()));
@@ -75,14 +75,12 @@ public class AvatarServiceImpl implements AvatarService {
 
     }
 
-    public Collection<Avatar> getAllAvatars(Integer pageNumber, Integer pageSize){
+    public Collection<Avatar> getAllAvatars(Integer pageNumber, Integer pageSize) {
         logger.info("Вызван метод getAllAvatars");
-        if ((long)(pageNumber-1)*pageSize>avatarRepository.count())
-        {
+        if ((long) (pageNumber - 1) * pageSize > avatarRepository.count()) {
             logger.error("Неверный запрос");
             throw new BadRequestExeption();
-        }
-        else {
+        } else {
             PageRequest pageRequest = PageRequest.of(pageNumber - 1, pageSize);
             return avatarRepository.findAll(pageRequest).getContent();
         }
@@ -90,16 +88,21 @@ public class AvatarServiceImpl implements AvatarService {
 
     public Avatar findAvatar(Long id) {
         logger.info("Вызван метод findAvatar");
-        return avatarRepository.findByStudentId(id).orElseThrow(()->{logger.error("");
-                                                                      throw new WrongIDExeption();
+        return avatarRepository.findByStudentId(id).orElseThrow(() -> {
+            logger.error("");
+            throw new WrongIDExeption();
         });
     }
 
-    public int sum(){
-        return Stream.iterate(1, a -> a +1)
+    /*Поскольку действия, производимые со стримом будут ассоциативными
+     * (от перемены мест слагаемых сумма не меняется, неважно, в каком порядке
+     *  будет проходить сложение, когда потоки соединятся), мы можем распараллелить stream
+     * по разным потокам. На результате это не скажется,*/
+    public int sum() {
+        return Stream.iterate(1, a -> a + 1)
                 .parallel()
                 .limit(1_000_000)
-                .reduce(0, (a, b) -> a + b );
+                .reduce(0, (a, b) -> a + b);
     }
 
     private byte[] generateImageData(Path filePath) throws IOException {

@@ -61,7 +61,7 @@ public class AvatarController {
     public Collection<Avatar> getAvatars(@RequestParam Integer pageNumber, @RequestParam Integer pageSize) {
         return avatarService.getAllAvatars(pageNumber,pageSize);
     }
-
+    // Поиск суммы
     @GetMapping(value = "/sum")
     public int sum(){
         return avatarService.sum();

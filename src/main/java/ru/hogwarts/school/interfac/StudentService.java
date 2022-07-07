@@ -26,7 +26,7 @@ public interface StudentService {
 
     double averageAge();
 
-    double averageAgeofStudents();
+    double averageAgeOfStudents();
 
     List<String> studentsToLiterA();
 

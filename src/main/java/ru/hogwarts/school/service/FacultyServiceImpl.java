@@ -34,8 +34,10 @@ public class FacultyServiceImpl implements FacultyService {
 
     public Faculty getFaculty(long myId) {
         logger.info("Вызван метод getFaculty");
-        return facultyRepository.findById(myId).orElseThrow(()->{logger.error("Нет факультета с id "+myId);
-            throw new WrongIDExeption();});
+        return facultyRepository.findById(myId).orElseThrow(() -> {
+            logger.error("Нет факультета с id " + myId);
+            throw new WrongIDExeption();
+        });
     }
 
     public Faculty updateFaculty(Faculty faculty) {
@@ -48,7 +50,7 @@ public class FacultyServiceImpl implements FacultyService {
         if (facultyRepository.existsById(myId)) {
             facultyRepository.deleteById(myId);
         } else {
-            logger.error("Нет факультета с id "+myId);
+            logger.error("Нет факультета с id " + myId);
             throw new WrongIDExeption();
         }
     }
@@ -61,20 +63,24 @@ public class FacultyServiceImpl implements FacultyService {
     public Collection<Student> getAllFacultyStudents(long id) {
         logger.info("Вызван метод getFacultyStudents");
         return facultyRepository.findById(id)
-                .orElseThrow(()->{logger.error("Нет факультета с id "+id);
-            throw new WrongIDExeption();})
+                .orElseThrow(() -> {
+                    logger.error("Нет факультета с id " + id);
+                    throw new WrongIDExeption();
+                })
                 .getStudents();
     }
 
-    public String longestFacultyName(){
+    /*Новый метод поиска самого длинного имени факультета.
+    * Способов, кстати, может быть немсколько,я выбрал тот, который показался лучше*/
+    public String longestFacultyName() {
         return facultyRepository.findAll()
                 .stream()
-                .reduce((x,y)->{
-                    if (x.getName().length()>y.getName().length()) {
+                .reduce((x, y) -> {
+                    if (x.getName().length() > y.getName().length()) {
                         return x;
+                    } else {
+                        return y;
                     }
-                    else
-                    {return y;}
                 }).get().getName();
 
     }

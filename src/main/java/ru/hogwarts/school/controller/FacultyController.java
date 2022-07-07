@@ -46,6 +46,7 @@ public class FacultyController {
         return ResponseEntity.ok(faculty);
     }
 
+    //Новый метод поиска длиннейшего имени
     @GetMapping("longestName")
     public ResponseEntity<String> getLongestNsme() {
         String s = facultyService.longestFacultyName();

@@ -81,7 +81,9 @@ public class StudentServiceImpl implements StudentService {
         logger.info("Вызван метод averageAge");
         return studentRepository.averageAge();
     }
-
+    /*Новый метод поиска студентов на букву А.
+    * Я не стал делать здесь исключений, пусть возвращает пустой список, если
+    * на А никого нет*/
     public List<String> studentsToLiterA(){
         return studentRepository.findAll()
                 .stream()
@@ -90,7 +92,7 @@ public class StudentServiceImpl implements StudentService {
                 .sorted()
                 .toList();
     }
-    public double averageAgeofStudents(){
+    public double averageAgeOfStudents(){
         logger.info("Вызван метод averageAgeOfStudents");
         return studentRepository.findAll()
                 .stream()

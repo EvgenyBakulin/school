@@ -48,31 +48,33 @@ public class StudentController {
     }
 
     @GetMapping("/numberOfStudents")
-    public int getNumberOfStudents(){
+    public int getNumberOfStudents() {
         return studentService.getNumberOfStudents();
     }
 
     @GetMapping("/averageAge")
-    public double averageAge(){
+    public double averageAge() {
         return studentService.averageAge();
     }
 
+    //Новый метод потска студентов, имена которых начинаются с буквы А
     @GetMapping("/namesOnA")
-    public ResponseEntity<List<String>> namesOfStudentsOnA(){
+    public ResponseEntity<List<String>> namesOfStudentsOnA() {
         List<String> list = studentService.studentsToLiterA();
         return ResponseEntity.ok(list);
     }
 
-
+   //Новый метод поиска среднего возраста студентов
     @GetMapping("/averageAgeOfStudents")
-    public double averageAgeOfStudents(){
-        return studentService.averageAgeofStudents();
+    public double averageAgeOfStudents() {
+        return studentService.averageAgeOfStudents();
     }
 
     @GetMapping("/lastStudents")
-    public Collection<Student> lastStudents(){
+    public Collection<Student> lastStudents() {
         return studentService.lastStudentsOrderById();
     }
+
     @PutMapping
     public ResponseEntity<Student> updateStudent(@RequestBody Student student) {
         Student s = studentService.updateStudent(student);
