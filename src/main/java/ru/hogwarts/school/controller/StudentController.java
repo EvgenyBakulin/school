@@ -75,6 +75,16 @@ public class StudentController {
         return studentService.lastStudentsOrderById();
     }
 
+    @GetMapping("/thread")
+    public void getTread(){
+        studentService.getStudentsOnThread();
+    }
+
+    @GetMapping("/synThread")
+    public void getSynhronizeTread(){
+        studentService.getStudentsOnSynhronizedThread();
+    }
+
     @PutMapping
     public ResponseEntity<Student> updateStudent(@RequestBody Student student) {
         Student s = studentService.updateStudent(student);

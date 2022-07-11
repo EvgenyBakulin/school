@@ -32,4 +32,8 @@ public interface StudentService {
 
     Collection<Student> lastStudentsOrderById();
 
+    void getStudentsOnThread();
+
+    void getStudentsOnSynhronizedThread();
+
 }
