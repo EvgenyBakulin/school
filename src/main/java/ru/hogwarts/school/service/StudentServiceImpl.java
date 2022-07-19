@@ -111,20 +111,8 @@ public class StudentServiceImpl implements StudentService {
         logger.info("Вызван метод lastStudentsOrderById");
         return studentRepository.lastStudentsOrderById();
     }
-
+  /*Методы для домашнего задания по потокам*/
     public void getStudentsOnThread() {
-        /*List<Student> list = studentRepository.findAll();
-        System.out.println(list.get(0).getName());
-        System.out.println(list.get(1).getName());
-        new Thread(()->{
-            System.out.println(list.get(2).getName());
-            System.out.println(list.get(3).getName());
-        }).start();
-        new Thread(()->{
-            System.out.println(list.get(4).getName());
-            System.out.println(list.get(5).getName());
-        }).start();*/
-
         getName(0);
         getName(1);
         new Thread(() ->
@@ -169,9 +157,9 @@ public class StudentServiceImpl implements StudentService {
         System.out.println(studentRepository.findAll().get(index).getName());
     }
 
-    private void getSynhronizeName(Integer index)
+    private void getSynhronizeName(int index)
     {
-        synchronized (index) {
+        synchronized (StudentServiceImpl.class) {
             System.out.println(studentRepository.findAll().get(index).getName());}
 
     }
